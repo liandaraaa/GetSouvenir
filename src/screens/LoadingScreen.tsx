@@ -5,6 +5,7 @@ import { View, ActivityIndicator, Text } from 'react-native';
 import { RootNavigationProp } from '../navigation/navigation';
 import { db } from '../../firebase';
 import firestore from '@react-native-firebase/firestore';
+import { NO_SOUVENIR_URL } from '../utils/helper';
 
 
 type LoadingScreenProps = {
@@ -18,6 +19,15 @@ const navigation = useNavigation<RootNavigationProp>();
 
   const { eventId } = route.params as LoadingScreenProps;
 
+  const navigateToResultScreen = (name: string, imageUrl:string) => {
+    navigation.navigate('Result', {
+      souvenir: {
+        name: name,
+        imageUrl: imageUrl,
+      },
+    });
+  };
+
   useEffect(() => {
     const getSouvenir = async () => {
       try {
@@ -30,7 +40,11 @@ const navigation = useNavigation<RootNavigationProp>();
           .get();
 
         if (snapshot.empty) {
-          throw new Error('Tidak ada souvenir tersisa');
+          navigateToResultScreen(
+            'Tidak ada souvenir yang tersedia',
+            NO_SOUVENIR_URL
+          )
+          return
         }
 
         const souvenirs = snapshot.docs.map(doc => ({ id: doc.id, name:doc.get('name'), imageUrl:doc.get('imageUrl'), ...doc.data() }));
@@ -51,9 +65,7 @@ const navigation = useNavigation<RootNavigationProp>();
           .doc(randomSouvenir.id)
           .update({ isClaimed: true });
 
-        navigation.navigate('Result', { souvenir: {
-          name: randomSouvenir.name, imageUrl: randomSouvenir.imageUrl
-        } });
+        navigateToResultScreen(randomSouvenir.name?.toString() || '', randomSouvenir.imageUrl?.toString() || '');
       } catch (error) {
         console.error(error);
       }

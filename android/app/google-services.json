@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "573385868262",
+    "project_id": "getsouvenir-ac1d0",
+    "storage_bucket": "getsouvenir-ac1d0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573385868262:android:729a7ead79e5f5b348cc27",
+        "android_client_info": {
+          "package_name": "com.getsouvenir"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC2wf18PSqm1C9B3iD5jjw2jUPAxSa0UM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

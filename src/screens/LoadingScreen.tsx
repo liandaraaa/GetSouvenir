@@ -3,7 +3,9 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { View, ActivityIndicator, Text } from 'react-native';
 import { RootNavigationProp } from '../navigation/navigation';
-// import { claimSouvenir } from '../firebase/firebase';
+import { db } from '../../firebase';
+import firestore from '@react-native-firebase/firestore';
+
 
 type LoadingScreenProps = {
   eventId: string;
@@ -17,21 +19,48 @@ const navigation = useNavigation<RootNavigationProp>();
   const { eventId } = route.params as LoadingScreenProps;
 
   useEffect(() => {
-    // const getSouvenir = async () => {
-    //   try {
-    //     const response = await claimSouvenir({ eventId });
-    //     navigation.replace('Result', { souvenir: response.data });
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
+    const getSouvenir = async () => {
+      try {
+        // Ambil semua souvenir yang belum diklaim
+        const snapshot = await db
+          .collection('events')
+          .doc(eventId)
+          .collection('souvenirs')
+          .where('isClaimed', '==', false)
+          .get();
 
-    // getSouvenir();
+        if (snapshot.empty) {
+          throw new Error('Tidak ada souvenir tersisa');
+        }
 
-    setTimeout(() => {
-      navigation.navigate('Result', { souvenir: eventId });
-    }, 2000);
-  }, [eventId]);
+        const souvenirs = snapshot.docs.map(doc => ({ id: doc.id, name:doc.get('name'), imageUrl:doc.get('imageUrl'), ...doc.data() }));
+        const randomSouvenir = souvenirs[Math.floor(Math.random() * souvenirs.length)];
+
+        // Simpan klaim ke collection claims
+        await db.collection('claims').add({
+          eventId,
+          souvenirId: randomSouvenir.id,
+          claimedAt: firestore.FieldValue.serverTimestamp()
+        });
+
+        // Update souvenir menjadi claimed = true
+        await db
+          .collection('events')
+          .doc(eventId)
+          .collection('souvenirs')
+          .doc(randomSouvenir.id)
+          .update({ isClaimed: true });
+
+        navigation.navigate('Result', { souvenir: {
+          name: randomSouvenir.name, imageUrl: randomSouvenir.imageUrl
+        } });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getSouvenir();
+  }, []);
 
   return (
     <View style={{ flex:1, justifyContent:'center', alignItems:'center' }}>

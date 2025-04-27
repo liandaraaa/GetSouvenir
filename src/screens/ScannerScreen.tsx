@@ -73,10 +73,6 @@ export default function ScannerScreen() {
     Alert.alert('Error!', error.message);
   };
 
-  if (device == null && codeScanned === '') {
-    Alert.alert('Error!', 'Camera could not be started');
-  }
-
   useEffect(() => {
 
     const handleBackButton = () => {

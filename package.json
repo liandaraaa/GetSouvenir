@@ -9,6 +9,12 @@
     "start": "react-native start",
     "test": "jest"
   },
+  "targets":{
+    "run-android": {
+      "executor": "@nx/react-native:run-android",
+      "options": {}
+    }
+  },
   "dependencies": {
     "react": "19.0.0",
     "react-native": "0.79.1"
@@ -31,9 +37,12 @@
     "jest": "^29.6.3",
     "prettier": "2.8.8",
     "react-test-renderer": "19.0.0",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "nx": "20.8.1"
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "nx": {}
+
 }

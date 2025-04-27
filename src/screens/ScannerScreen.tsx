@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Alert, Modal, Platform, StyleSheet, View } from 'react-native';
+import { Alert, BackHandler, Modal, Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
     Camera,
@@ -12,7 +12,7 @@ import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native'
 import {RNHoleView} from 'react-native-hole-view';
 import { getWindowHeight, getWindowWidth, isIos } from '../utils/helper';
 import { styles } from '../styles/ScannerScreenStyle';
-import { RootNavigationProp } from '../../App';
+import { RootNavigationProp } from '../navigation/navigation';
 
   export type IScannerScreenProps  = {
     setIsCameraShown: (value: boolean) => void;
@@ -23,6 +23,8 @@ import { RootNavigationProp } from '../../App';
 export default function ScannerScreen() {
 
     const route = useRoute()
+
+    const navigation = useNavigation<RootNavigationProp>()
 
     const {setIsCameraShown, onReadCode} = route.params as IScannerScreenProps
 
@@ -64,6 +66,7 @@ export default function ScannerScreen() {
   const codeScanner = useCodeScanner({
     codeTypes: ['qr'],
     onCodeScanned: codes => {
+        Alert.alert('qr code scanned', codes[0].value);
       if (codes.length > 0) {
         if (codes[0].value) {
           setIsActive(false);
@@ -86,8 +89,20 @@ export default function ScannerScreen() {
     Alert.alert('Error!', 'Camera could not be started');
   }
 
-  console.log('cek isFocused', isFocused);
-  console.log('cek device', device);
+  useEffect(() => {
+
+    const handleBackButton = () => {
+        navigation.goBack()
+        return true;
+    }
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackButton
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
     return (
       <SafeAreaView style={styles.safeArea}>

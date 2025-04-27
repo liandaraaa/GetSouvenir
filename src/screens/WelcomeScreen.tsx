@@ -1,12 +1,11 @@
 // WelcomeScreen.js
 import { View, Text, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { RootNavigationProp } from '../../App';
+import { RootNavigationProp } from '../navigation/navigation';
 import { useState } from 'react';
 import { EPermissionTypes, usePermissions } from '../hooks/usePermission';
 import { RESULTS } from 'react-native-permissions';
 import { goToSettings } from '../utils/helper';
-
 
 export default function WelcomeScreen() {
 

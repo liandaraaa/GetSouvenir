@@ -6,25 +6,45 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import LoadingScreen from './src/screens/LoadingScreen';
 import ResultScreen from './src/screens/ResultScreen';
 
-const Stack = createNativeStackNavigator();
-
 type RootStackParamList = {
   Welcome: {},
-  Scanner: {}, 
+  Scanner: {
+    setIsCameraShown: boolean;
+    onReadCode: (value:string)=>void;
+  };
   Loading : {},
   Result : {}
 }
 
-export type RootNavigationProp = NavigationProp<
- StackNavigationProp<RootStackParamList>
->;
 
-export default function App() {
+export type InitialRouteName = keyof RootStackParamList;
+
+export type RootNavigationProp = NavigationProp<RootStackParamList>;
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+type Props = {
+  initialRouteName: InitialRouteName;
+  params:{
+    Welcome: {},
+  Scanner: {
+    setIsCameraShown: boolean;
+    onReadCode: string;
+  };
+  Loading : {},
+  Result : {}
+  }
+}
+
+export default function App(props: Props) {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Navigator initialRouteName={props.initialRouteName}>
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="Scanner" component={ScannerScreen} />
+        <Stack.Screen
+          name="Scanner"
+          component={ScannerScreen}
+        />
         <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="Result" component={ResultScreen} />
       </Stack.Navigator>

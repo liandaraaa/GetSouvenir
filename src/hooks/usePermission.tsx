@@ -1,6 +1,7 @@
 import {useCallback} from 'react';
 import { Platform } from 'react-native';
 import {PERMISSIONS, RESULTS, request} from 'react-native-permissions';
+import { isAndroid, isIos } from '../utils/helper';
 
 export type TUsePermissionsReturnType = {
   isError?: boolean;
@@ -21,7 +22,7 @@ export const usePermissions = (typeOfPermission: EPermissionTypes) => {
     ) {
       throw new Error('Unsupported Type of permission.');
     }
-    if (Platform.OS === 'ios') {
+    if (isIos) {
       switch (typeOfPermission) {
         case EPermissionTypes.CAMERA:
           return PERMISSIONS.IOS.CAMERA;
@@ -30,7 +31,7 @@ export const usePermissions = (typeOfPermission: EPermissionTypes) => {
       }
     }
 
-    if (Platform.OS === 'android') {
+    if (isAndroid) {
       switch (typeOfPermission) {
         case EPermissionTypes.CAMERA:
           return PERMISSIONS.ANDROID.CAMERA;

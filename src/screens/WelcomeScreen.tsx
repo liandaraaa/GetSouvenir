@@ -12,20 +12,12 @@ export default function WelcomeScreen() {
   const navigation = useNavigation<RootNavigationProp>()
 
   const [cameraShown, setCameraShown] = useState(false);
-  const [QrText, setQrText] = useState('');
 
   const {askPermissions } = usePermissions(EPermissionTypes.CAMERA)
 
-  const handleReadCode = (value: string) => {
-    setQrText(value);
-    setCameraShown(false);
-  };
 
   const navigateToScanner = ()=>{
-    navigation.navigate('Scanner',{
-      setIsCameraShown:cameraShown,
-      onReadCode:handleReadCode
-    })
+    navigation.navigate('Scanner')
   }
 
   const takePermissions = async () => {

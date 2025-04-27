@@ -1,23 +1,37 @@
 // LoadingScreen.js
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { View, ActivityIndicator, Text } from 'react-native';
+import { RootNavigationProp } from '../navigation/navigation';
 // import { claimSouvenir } from '../firebase/firebase';
 
+type LoadingScreenProps = {
+  eventId: string;
+};
+
 export default function LoadingScreen() {
-//   const { eventId } = route.params;
+    const route = useRoute()
 
-//   useEffect(() => {
-//     const getSouvenir = async () => {
-//       try {
-//         const response = await claimSouvenir({ eventId });
-//         navigation.replace('Result', { souvenir: response.data });
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     };
+const navigation = useNavigation<RootNavigationProp>();
 
-//     getSouvenir();
-//   }, []);
+  const { eventId } = route.params as LoadingScreenProps;
+
+  useEffect(() => {
+    // const getSouvenir = async () => {
+    //   try {
+    //     const response = await claimSouvenir({ eventId });
+    //     navigation.replace('Result', { souvenir: response.data });
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
+
+    // getSouvenir();
+
+    setTimeout(() => {
+      navigation.navigate('Result', { souvenir: eventId });
+    }, 2000);
+  }, [eventId]);
 
   return (
     <View style={{ flex:1, justifyContent:'center', alignItems:'center' }}>

@@ -9,24 +9,15 @@ import {
   } from 'react-native-vision-camera';
 import { useAppStateListener } from '../hooks/useAppState';
 import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
-import {RNHoleView} from 'react-native-hole-view';
-import { getWindowHeight, getWindowWidth, isIos } from '../utils/helper';
+import { isIos } from '../utils/helper';
 import { styles } from '../styles/ScannerScreenStyle';
 import { RootNavigationProp } from '../navigation/navigation';
 
-  export type IScannerScreenProps  = {
-    setIsCameraShown: (value: boolean) => void;
-    onReadCode: (value: string) => void;
-  }
-
-  
 export default function ScannerScreen() {
 
     const route = useRoute()
 
     const navigation = useNavigation<RootNavigationProp>()
-
-    const {setIsCameraShown, onReadCode} = route.params as IScannerScreenProps
 
   const device = useCameraDevice('back');
   const camera = useRef<Camera>(null);
@@ -40,9 +31,11 @@ export default function ScannerScreen() {
 
   useEffect(() => {
     if (codeScanned) {
-      onReadCode(codeScanned);
+        navigation.navigate('Loading',{
+            eventId: codeScanned
+        })
     }
-  }, [codeScanned, onReadCode]);
+  }, [codeScanned]);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -66,7 +59,6 @@ export default function ScannerScreen() {
   const codeScanner = useCodeScanner({
     codeTypes: ['qr'],
     onCodeScanned: codes => {
-        Alert.alert('qr code scanned', codes[0].value);
       if (codes.length > 0) {
         if (codes[0].value) {
           setIsActive(false);
@@ -77,15 +69,11 @@ export default function ScannerScreen() {
     },
   });
 
-  const onCrossClick = () => {
-    setIsCameraShown(false);
-  };
-
   const onError = (error: CameraRuntimeError) => {
     Alert.alert('Error!', error.message);
   };
 
-  if (device == null) {
+  if (device == null && codeScanned === '') {
     Alert.alert('Error!', 'Camera could not be started');
   }
 
@@ -128,18 +116,6 @@ export default function ScannerScreen() {
           />
           : null
           }
-          {/* <RNHoleView
-            holes={[
-              {
-                x: getWindowWidth() * 0.1,
-                y: getWindowHeight() * 0.28,
-                width: getWindowWidth() * 0.8,
-                height: getWindowHeight() * 0.4,
-                borderRadius: 10,
-              },
-            ]}
-            style={[styles.rnholeView, styles.fullScreenCamera]}
-          /> */}
         </Modal>
       </SafeAreaView>
     );

@@ -1,6 +1,6 @@
 // WelcomeScreen.js
 import { View, Text, Button, Alert, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import { RootNavigationProp } from '../navigation/navigation';
 import { useState } from 'react';
 import { EPermissionTypes, usePermissions } from '../hooks/usePermission';
@@ -18,13 +18,14 @@ export default function WelcomeScreen() {
 
 
   const navigateToScanner = ()=>{
-    navigation.navigate('Scanner')
+    navigation.dispatch(
+      StackActions.push('Scanner')
+    )
   }
 
   const takePermissions = async () => {
     askPermissions()
       .then(response => {
-        //permission given for camera
         if (
           response.type === RESULTS.LIMITED ||
           response.type === RESULTS.GRANTED
@@ -34,7 +35,6 @@ export default function WelcomeScreen() {
         }
       })
       .catch(error => {
-        //permission is denied/blocked or camera feature not supported
         if ('isError' in error && error.isError) {
           Alert.alert(
             error.errorMessage ||

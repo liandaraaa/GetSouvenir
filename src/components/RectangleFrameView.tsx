@@ -16,7 +16,6 @@ const RectangleFrameView = () => {
       <View style={{ ...styles.overlay, top: frameTop, left: 0, width: frameLeft, height: frameHeight }} />
       <View style={{ ...styles.overlay, top: frameTop, right: 0, width: frameLeft, height: frameHeight }} />
 
-      {/* Rectangle Border */}
       <View style={{
         position: 'absolute',
         top: frameTop,
@@ -30,10 +29,9 @@ const RectangleFrameView = () => {
       }} />
 
 
-      {/* Text above Rectangle */}
       <View style={{
         position: 'absolute',
-        top: frameTop - 50, // 50 pixels above the rectangle
+        top: frameTop - 50,
         left: 0,
         right: 0,
         alignItems: 'center',
@@ -46,7 +44,7 @@ const RectangleFrameView = () => {
 
       <View style={{  
         position: 'absolute',
-        top: frameTop + frameHeight + 10, // 10 pixels below the rectangle
+        top: frameTop + frameHeight + 10,
         left: 0,
         right: 0,
         alignItems: 'center',

@@ -22,6 +22,7 @@ const navigation = useNavigation<RootNavigationProp>();
   const { eventId } = route.params as LoadingScreenProps;
 
   const navigateToResultScreen = (name?: string, imageUrl?:string) => {
+   setTimeout(()=>{
     navigation.dispatch(
       StackActions.replace('Result', {
       souvenir: {
@@ -30,12 +31,12 @@ const navigation = useNavigation<RootNavigationProp>();
       },
     })
     );
+   },3000)
   };
 
   useEffect(() => {
     const getSouvenir = async () => {
       try {
-        // Ambil semua souvenir yang belum diklaim
         const snapshot = await db
           .collection('events')
           .doc(eventId)
@@ -54,14 +55,12 @@ const navigation = useNavigation<RootNavigationProp>();
         const souvenirs = snapshot.docs.map(doc => ({ id: doc.id, name:doc.get('name'), imageUrl:doc.get('imageUrl'), ...doc.data() }));
         const randomSouvenir = souvenirs[Math.floor(Math.random() * souvenirs.length)];
 
-        // Simpan klaim ke collection claims
         await db.collection('claims').add({
           eventId,
           souvenirId: randomSouvenir.id,
           claimedAt: firestore.FieldValue.serverTimestamp()
         });
 
-        // Update souvenir menjadi claimed = true
         await db
           .collection('events')
           .doc(eventId)
@@ -80,10 +79,9 @@ const navigation = useNavigation<RootNavigationProp>();
 
   return (
     <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:PRIMARY_COLOR }}>
-      <BouncingDotsView color={ACCENT_COLOR} />  {/* Custom color like Tomato Red */}
+      <BouncingDotsView color={ACCENT_COLOR} />
       <Text style={{ marginTop:10 }}>Please wait a moment..</Text>
-      <Text style={{ marginTop:10 }}>We are looking for the best souvenir</Text>
-      <Text style={{ marginTop:10 }}>for you</Text>
+      <Text style={{ marginTop:10 }}>We are looking for the best souvenir for you</Text>
     </View>
   );
 }

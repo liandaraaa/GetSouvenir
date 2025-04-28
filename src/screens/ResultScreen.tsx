@@ -5,7 +5,7 @@ import LottieView from 'lottie-react-native';
 import { NO_SOUVENIR_URL } from '../utils/helper';
 
 type ResultScreenProps = {
-    souvenir?: {
+    souvenir: {
       name:string,
       imageUrl:string,
     };

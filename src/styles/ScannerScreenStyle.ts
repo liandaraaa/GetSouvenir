@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     },
     overlayContainer: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', 
       justifyContent: 'center',
       alignItems: 'center',
       position: 'absolute',
@@ -41,8 +41,8 @@ export const styles = StyleSheet.create({
       zIndex: 100,
     },
     rectangle: {
-      width: getWindowWidth() * 0.8, // 80% of screen width
-      height: getWindowHeight() * 0.6, // 60% of screen height
+      width: getWindowWidth() * 0.8, 
+      height: getWindowHeight() * 0.6, 
       backgroundColor: 'white',
       borderRadius: 10,
       borderWidth: 2,

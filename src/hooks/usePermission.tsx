@@ -15,7 +15,6 @@ export enum EPermissionTypes {
 
 export const usePermissions = (typeOfPermission: EPermissionTypes) => {
   const getPermission = useCallback(() => {
-    //check if typeOfPermission exist in EPermissionTypes
     if (
       !typeOfPermission ||
       !Object.values(EPermissionTypes).includes(typeOfPermission)
@@ -46,8 +45,6 @@ export const usePermissions = (typeOfPermission: EPermissionTypes) => {
   const askPermissions =
     useCallback(async (): Promise<TUsePermissionsReturnType> => {
       return new Promise<TUsePermissionsReturnType>(async (resolve, reject) => {
-        //ask permissions from user
-        //if error present, return error
         try {
           await request(getPermission()).then(result => {
             switch (result) {

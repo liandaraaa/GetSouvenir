@@ -7,7 +7,6 @@ const BouncingDotsView = ({ color = '#6200ee' }) => {
   const bounceAnim2 = new Animated.Value(0);
   const bounceAnim3 = new Animated.Value(0);
 
-  // Animation logic for each dot
   const bounce = (anim:AnimatedValue) => {
     Animated.loop(
       Animated.sequence([
@@ -24,8 +23,6 @@ const BouncingDotsView = ({ color = '#6200ee' }) => {
       ])
     ).start();
   };
-
-  // Start animation for each dot
   bounce(bounceAnim1);
   bounce(bounceAnim2);
   bounce(bounceAnim3);

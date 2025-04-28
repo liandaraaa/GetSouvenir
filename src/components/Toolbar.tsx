@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'; // or MaterialIcons, FontAwesome, etc.
+import Icon from 'react-native-vector-icons/Ionicons';
 
 type ToolbarProps = {
   title?: string;
@@ -10,16 +10,11 @@ type ToolbarProps = {
 const Toolbar = ({ title, onBackPress }:ToolbarProps) => {
   return (
     <View style={styles.toolbar}>
-      {/* Left: Icon Button */}
       <TouchableOpacity onPress={onBackPress} style={styles.sideButton}>
         <Icon name="arrow-back" size={24} color="#fff" />
       </TouchableOpacity>
-
-      {/* Center: Title */}
       {title && 
       <Text style={styles.title}>{title}</Text>}
-
-      {/* Right: Empty space */}
       <View style={styles.sideButton} />
     </View>
   );

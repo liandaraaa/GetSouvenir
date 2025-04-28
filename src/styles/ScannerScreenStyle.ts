@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { getWindowHeight, getWindowWidth } from "../utils/helper";
 
 export const styles = StyleSheet.create({
     safeArea: {
@@ -17,12 +18,6 @@ export const styles = StyleSheet.create({
       flex: 1,
       zIndex: 100,
     },
-    rnholeView: {
-      alignSelf: 'center',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'rgba(0,0,0,0.5)',
-    },
     cameraControls: {
       height: '10%',
       top: 15,
@@ -34,11 +29,35 @@ export const styles = StyleSheet.create({
       paddingHorizontal: 24,
       zIndex: 1000,
     },
-    icon: {
-      height: 45,
-      width: 45,
-      borderRadius: 45,
-      alignItems: 'center',
+    overlayContainer: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
       justifyContent: 'center',
+      alignItems: 'center',
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      flex: 1,
+      zIndex: 100,
+    },
+    rectangle: {
+      width: getWindowWidth() * 0.8, // 80% of screen width
+      height: getWindowHeight() * 0.6, // 60% of screen height
+      backgroundColor: 'white',
+      borderRadius: 10,
+      borderWidth: 2,
+    },
+    toolbar: {
+      padding: 15,
+      alignItems: 'center',
+      position: 'absolute',
+      width: '100%',
+      flex: 1,
+      zIndex: 100,
+    },
+    toolbarText: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: 'white',
     },
   });

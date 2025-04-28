@@ -12,6 +12,7 @@ import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native'
 import { isIos } from '../utils/helper';
 import { styles } from '../styles/ScannerScreenStyle';
 import { RootNavigationProp } from '../navigation/navigation';
+import RectangleFrameView from '../components/RectangleFrameView';
 
 export default function ScannerScreen() {
     const navigation = useNavigation<RootNavigationProp>()
@@ -110,6 +111,7 @@ export default function ScannerScreen() {
           />
           : null
           }
+           <RectangleFrameView/>
         </Modal>
       </SafeAreaView>
     );

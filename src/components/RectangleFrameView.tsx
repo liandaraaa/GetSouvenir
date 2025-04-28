@@ -5,9 +5,9 @@ const { width, height } = Dimensions.get('window');
 
 const RectangleFrameView = () => {
   const frameWidth = width * 0.8;
-  const frameHeight = height * 0.3;
+  const frameHeight = height * 0.5;
   const frameLeft = (width - frameWidth) / 2;
-  const frameTop = (height - frameHeight) / 2;
+  const frameTop = (height - frameHeight) / 3;
 
   return (
     <View style={styles.container}>
@@ -44,6 +44,19 @@ const RectangleFrameView = () => {
         </Text>
       </View>
 
+      <View style={{  
+        position: 'absolute',
+        top: frameTop + frameHeight + 10, // 10 pixels below the rectangle
+        left: 0,
+        right: 0,
+        alignItems: 'center',
+        zIndex: 100,
+      }}>
+        <Text style={styles.subtext}>
+          Scan the QR from the event, ask the event organizer for get the qr code
+        </Text>
+        </View>
+
     </View>
   );
 };
@@ -62,6 +75,11 @@ const styles = StyleSheet.create({
   text: {
     color: '#fff',
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  subtext: {
+    color: '#fff',
+    fontSize: 10,
     fontWeight: 'bold',
   },
 });

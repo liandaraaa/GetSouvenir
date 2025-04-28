@@ -13,6 +13,7 @@ import { isIos } from '../utils/helper';
 import { styles } from '../styles/ScannerScreenStyle';
 import { RootNavigationProp } from '../navigation/navigation';
 import RectangleFrameView from '../components/RectangleFrameView';
+import Toolbar from '../components/Toolbar';
 
 export default function ScannerScreen() {
     const navigation = useNavigation<RootNavigationProp>()
@@ -111,6 +112,9 @@ export default function ScannerScreen() {
           />
           : null
           }
+          <Toolbar
+  onBackPress={() => navigation.goBack()}
+/>
            <RectangleFrameView/>
         </Modal>
       </SafeAreaView>

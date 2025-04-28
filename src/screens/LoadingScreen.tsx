@@ -1,7 +1,7 @@
 // LoadingScreen.js
 import { StackActions, useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect } from 'react';
-import { View, ActivityIndicator, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { RootNavigationProp } from '../navigation/navigation';
 import { db } from '../../firebase';
 import firestore from '@react-native-firebase/firestore';
@@ -21,7 +21,7 @@ const navigation = useNavigation<RootNavigationProp>();
 
   const { eventId } = route.params as LoadingScreenProps;
 
-  const navigateToResultScreen = (name: string, imageUrl:string) => {
+  const navigateToResultScreen = (name?: string, imageUrl?:string) => {
     navigation.dispatch(
       StackActions.replace('Result', {
       souvenir: {
@@ -45,8 +45,8 @@ const navigation = useNavigation<RootNavigationProp>();
 
         if (snapshot.empty) {
           navigateToResultScreen(
-            'Tidak ada souvenir yang tersedia',
-            NO_SOUVENIR_URL
+            'No souvenir available',
+            NO_SOUVENIR_URL,
           )
           return
         }
@@ -81,7 +81,9 @@ const navigation = useNavigation<RootNavigationProp>();
   return (
     <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:PRIMARY_COLOR }}>
       <BouncingDotsView color={ACCENT_COLOR} />  {/* Custom color like Tomato Red */}
-      <Text style={{ marginTop:20 }}>Mencari souvenir terbaik untukmu...</Text>
+      <Text style={{ marginTop:10 }}>Please wait a moment..</Text>
+      <Text style={{ marginTop:10 }}>We are looking for the best souvenir</Text>
+      <Text style={{ marginTop:10 }}>for you</Text>
     </View>
   );
 }

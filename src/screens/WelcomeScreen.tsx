@@ -67,7 +67,7 @@ export default function WelcomeScreen() {
 
   return (
     <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:PRIMARY_COLOR }}>
-      <Image source={require('../assets/logo.png')} style={{width:100, height:100}} />
+      <Image source={require('../assets/images/logo.png')} style={{width:100, height:100}} />
       <Text style={{ fontSize: 24, marginVertical: 20 }}>Welcome to Get Souvenir</Text>
       <Text style={{ fontSize: 16, marginBottom: 20 }}>Please give camera permission to scan barcodes</Text>
       <View style={{ width: '80%', marginBottom: 20, borderRadius: 16, overflow: 'hidden'}}>

@@ -6,6 +6,8 @@ import { RootNavigationProp } from '../navigation/navigation';
 import { db } from '../../firebase';
 import firestore from '@react-native-firebase/firestore';
 import { NO_SOUVENIR_URL } from '../utils/helper';
+import BouncingDotsView from '../components/BouncingDotsView';
+import { ACCENT_COLOR, PRIMARY_COLOR } from '../styles/colors';
 
 
 type LoadingScreenProps = {
@@ -77,8 +79,8 @@ const navigation = useNavigation<RootNavigationProp>();
   }, []);
 
   return (
-    <View style={{ flex:1, justifyContent:'center', alignItems:'center' }}>
-      <ActivityIndicator size="large" />
+    <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:PRIMARY_COLOR }}>
+      <BouncingDotsView color={ACCENT_COLOR} />  {/* Custom color like Tomato Red */}
       <Text style={{ marginTop:20 }}>Mencari souvenir terbaik untukmu...</Text>
     </View>
   );

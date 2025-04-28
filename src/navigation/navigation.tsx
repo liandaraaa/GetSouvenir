@@ -30,7 +30,7 @@ export default function AppNavigation() {
           name="Scanner"
           component={ScannerScreen}
         />
-        <Stack.Screen name="Loading" component={LoadingScreen} />
+        <Stack.Screen name="Loading" component={LoadingScreen} options={{headerShown:false}} />
         <Stack.Screen name="Result" component={ResultScreen} />
       </Stack.Navigator>
   );

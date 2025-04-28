@@ -1,11 +1,12 @@
 // WelcomeScreen.js
-import { View, Text, Button, Alert } from 'react-native';
+import { View, Text, Button, Alert, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RootNavigationProp } from '../navigation/navigation';
 import { useState } from 'react';
 import { EPermissionTypes, usePermissions } from '../hooks/usePermission';
 import { RESULTS } from 'react-native-permissions';
 import { goToSettings } from '../utils/helper';
+import { ACCENT_COLOR, PRIMARY_COLOR, SECONDARY_COLOR } from '../styles/colors';
 
 export default function WelcomeScreen() {
 
@@ -65,11 +66,16 @@ export default function WelcomeScreen() {
   };
 
   return (
-    <View style={{ flex:1, justifyContent:'center', alignItems:'center' }}>
-      <Text style={{ fontSize:32, marginBottom:20 }}>Welcome to GetSouvenir</Text>
-      <Button title="Scan Barcode" 
-      onPress={() => cameraShown ? navigateToScanner(): takePermissions()} 
-      />
+    <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:PRIMARY_COLOR }}>
+      <Image source={require('../assets/logo.png')} style={{width:100, height:100}} />
+      <Text style={{ fontSize: 24, marginVertical: 20 }}>Welcome to Get Souvenir</Text>
+      <Text style={{ fontSize: 16, marginBottom: 20 }}>Please give camera permission to scan barcodes</Text>
+      <View style={{ width: '80%', marginBottom: 20, borderRadius: 16, overflow: 'hidden'}}>
+        <Button 
+        color={ACCENT_COLOR}
+        title="Get Your Souvenir"
+        onPress={() => cameraShown ? navigateToScanner(): takePermissions()} />
+      </View>
     </View>
   );
 }

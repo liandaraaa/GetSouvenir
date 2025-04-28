@@ -25,7 +25,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function AppNavigation() {
   return (
       <Stack.Navigator initialRouteName='Welcome'>
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown:false}}/>
         <Stack.Screen
           name="Scanner"
           component={ScannerScreen}

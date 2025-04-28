@@ -14,15 +14,13 @@ import { styles } from '../styles/ScannerScreenStyle';
 import { RootNavigationProp } from '../navigation/navigation';
 
 export default function ScannerScreen() {
-
-    const route = useRoute()
-
     const navigation = useNavigation<RootNavigationProp>()
 
   const device = useCameraDevice('back');
   const camera = useRef<Camera>(null);
   
   const isFocused = useIsFocused();
+  
   const [isCameraInitialized, setIsCameraInitialized] = useState(isIos);
   const [isActive, setIsActive] = useState(isIos);
   const [flash, setFlash] = useState<'on' | 'off'>(isIos ? 'off' : 'on');

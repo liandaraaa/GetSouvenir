@@ -1,5 +1,5 @@
 // LoadingScreen.js
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { StackActions, useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { View, ActivityIndicator, Text } from 'react-native';
 import { RootNavigationProp } from '../navigation/navigation';
@@ -20,12 +20,14 @@ const navigation = useNavigation<RootNavigationProp>();
   const { eventId } = route.params as LoadingScreenProps;
 
   const navigateToResultScreen = (name: string, imageUrl:string) => {
-    navigation.navigate('Result', {
+    navigation.dispatch(
+      StackActions.replace('Result', {
       souvenir: {
         name: name,
         imageUrl: imageUrl,
       },
-    });
+    })
+    );
   };
 
   useEffect(() => {
